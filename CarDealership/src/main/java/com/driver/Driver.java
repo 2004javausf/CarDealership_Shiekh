@@ -5,21 +5,32 @@ import java.util.Scanner;
 
 import com.dao.CarDealershipDAOImpl;
 import com.dao.OffersDAOImpl;
+import com.dao.PaymentDAOImpl;
 import com.methods.Methods;
 
 public class Driver {
 
-	public static void main(String[] args) throws SQLException {
-//		Methods run= new Methods();
-//		run.currentUser();
+	public static void main(String[] args) throws Throwable {
 		
-//		OffersDAOImpl oddi = new OffersDAOImpl();
+		Methods run= new Methods();
+		run.newUser();
+		
+		
+//		PaymentDAOImpl pdi= new PaymentDAOImpl();
 //		try {
-//			oddi.viewOffers()\;
+//			pdi.remainingPaymentsList("wow");
+////			pdi.makePayment("wow");
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+//		OffersDAOImpl oddi = new OffersDAOImpl();
+//////		try {
+//////			oddi.viewOffers()\;
+//////		} catch (Exception e) {
+//////			// TODO Auto-generated catch block
+//////			e.printStackTrace();
+//////		}
 //		try {
 //			oddi.offers("wow");
 //		} catch (Exception e) {
@@ -28,16 +39,17 @@ public class Driver {
 //		}
 //		Methods mtd=new Methods();
 //		
-		CarDealershipDAOImpl cddi=new CarDealershipDAOImpl();
-		
-		try {
-			cddi.viewCars();
+//		CarDealershipDAOImpl cddi=new CarDealershipDAOImpl();
+//		
+//		try {
 //			cddi.acceptRejectOffers();
-//			System.out.println(cddi.ownedCars("wow"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+////			cddi.viewCars();
+////			cddi.acceptRejectOffers();
+////			System.out.println(cddi.ownedCars("wow"));
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //	
 //		try {
 //			cddi.acceptRejectOffers();

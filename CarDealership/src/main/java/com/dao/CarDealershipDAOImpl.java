@@ -19,18 +19,18 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 	
 	
 	
-	public void insertUser() throws SQLException {
-		
-		Connection conn=cf.getConnection();
-		Statement stmt=conn.createStatement();
-		Scanner sc= new Scanner(System.in);
-		System.out.println("Enter desire username: ");
-		String username=sc.nextLine();
-		System.out.println("Enter desire password: ");
-		String password=sc.nextLine();
-		String sql="INSERT INTO USER1 VALUES ('"+username+"','"+password+"')";
-		stmt.executeUpdate(sql);
-	}
+//	public void insertUser() throws SQLException {
+//		
+//		Connection conn=cf.getConnection();
+//		Statement stmt=conn.createStatement();
+//		Scanner sc= new Scanner(System.in);
+//		System.out.println("Enter desire username: ");
+//		String username=sc.nextLine();
+//		System.out.println("Enter desire password: ");
+//		String password=sc.nextLine();
+//		String sql="INSERT INTO USER1 VALUES ('"+username+"','"+password+"')";
+//		stmt.executeUpdate(sql);
+//	}
 	
 	
 	public List<User> getUserList() throws SQLException{
@@ -90,23 +90,22 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 	}
 
 	
-	public void checkUser() throws SQLException{
-		Scanner sc=new Scanner(System.in);
-		System.out.println("Enter username: ");
-		String username=sc.nextLine();
-		System.out.println("Enter password: ");
-		String password=sc.nextLine();
-		for (int i=0; i< getUserList().size();i++)
-		{
-			String tmp= getUserList().get(i).toString();
-			if (tmp.contains("userName=" + username + ", " + "password=" + password + " ")) {
-				System.out.println("Login successfull");
-				
-				break;
-				}
-			else { System.out.println("Login successfull");}
-			}
-		}
+//	public void checkUser(String userName, String password) throws SQLException{
+////		Scanner sc=new Scanner(System.in);
+////		System.out.println("Enter username: ");
+////		String username=sc.nextLine();
+////		System.out.println("Enter password: ");
+////		String password=sc.nextLine();
+//		for (int i=0; i< getUserList().size();i++)
+//		{
+//			String tmp= getUserList().get(i).toString();
+//			if (tmp.contains("userName=" + userName + ", " + "password=" + password + " ")) {
+//				System.out.println("User Name Already Exists");
+//				break;
+//				}
+//			else { System.out.println("Login successfull");}
+//			}
+//		}
 
 
 	public void viewCars() throws SQLException {
@@ -145,7 +144,11 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			String userName=sc.nextLine();
 			rs = stmt.executeQuery("UPDATE CARS SET CAR_STATUS = 'Owned'  WHERE CAR_ID = " + carId);
 			rs = stmt.executeQuery("UPDATE CARS SET OWNER = '"+userName+"'  WHERE CAR_ID = " + carId);
-			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID = " + carId );
+			
+			rs = stmt.executeQuery("INSERT INTO PAYMENTS (CAR_ID,PAYMENTS_DECIDED,REMAINING_PAYMENTS,CAR_PRICE,AMOUNT_REMAINING,USERNAME) SELECT CAR_ID,NUMBER_OF_MONTHS,NUMBER_OF_MONTHS,CAR_PRICE,CAR_PRICE,USERNAME FROM OFFERS WHERE USERNAME = '"+userName+"' AND CAR_ID= "+ carId);
+			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE USERNAME = '"+userName+"' AND CAR_ID = " + carId);
+			//			String sql="INSERT INTO PAYMENTS VALUES ("+carId+","+rs.getInt(6)+")";
+//			stmt.executeUpdate(sql);
 			return;
 		}
 		else if(choice.equals("reject"))

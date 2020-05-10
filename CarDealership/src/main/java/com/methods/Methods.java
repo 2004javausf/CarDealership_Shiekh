@@ -9,12 +9,16 @@ import java.util.Scanner;
 import com.connection.ConnFactory;
 import com.dao.CarDealershipDAOImpl;
 import com.dao.OffersDAOImpl;
+import com.dao.PaymentDAOImpl;
 
 public class Methods {
 	public static ConnFactory cf=ConnFactory.getInstance();
-	public void currentUser() throws SQLException {
+	
+	
+	public void currentUser() throws Throwable {
 		CarDealershipDAOImpl cdd=new CarDealershipDAOImpl();
 		OffersDAOImpl off= new OffersDAOImpl();
+		PaymentDAOImpl pdi= new PaymentDAOImpl();
 		Connection conn=cf.getConnection();
 		Statement stmt=conn.createStatement();
 		
@@ -36,30 +40,56 @@ public class Methods {
 						{
 						case 1:
 							cdd.viewCars();
-							break;
-						case 2:
-							try {
-								off.offers(userName);
-							} catch (Exception e) {
-								e.printStackTrace();
+							System.out.println("Do you want to make an offer (yes or no)");
+							String select=sc.nextLine();
+							if(select.equals("no"))
+							{
+								break;
 							}
+						case 2:
+								off.offers(userName);
 							break;
 						case 3:
-							try {
-								System.out.println(cdd.ownedCars(userName));
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+								System.out.println(cdd.ownedCars(userName));	
+								break;
+						case 4:
+							pdi.remainingPaymentsList(userName);
+							break;
 						}
 						
-			return;
 		}
 		else {
 			System.out.println("Login Un Successful");
 		}
 		
 	}
+	
+	public void newUser() throws Throwable{
+		CarDealershipDAOImpl cdd=new CarDealershipDAOImpl();
+		OffersDAOImpl off= new OffersDAOImpl();
+		PaymentDAOImpl pdi= new PaymentDAOImpl();
+		Connection conn=cf.getConnection();
+		Statement stmt=conn.createStatement();
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Desire username: ");
+		String userName=sc.nextLine();
+		System.out.println("Enter Desire password: ");
+		String password=sc.nextLine();
+		ResultSet rs=stmt.executeQuery("SELECT * FROM USER1 WHERE USERNAME = '" + userName + "'");
+		if(rs.next() == true) {
+			System.out.println("User Name Already Exists Please Try Again: ");
+			newUser();
+		}
+		else
+		{
+			String sql="INSERT INTO USER1 VALUES ('"+userName+"','"+password+"')";
+			stmt.executeUpdate(sql);
+			System.out.println("You Have Successfully Registered \n You Can Now Login");
+			currentUser();
+		}
+		
+}
 }
 		
 		
