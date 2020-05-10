@@ -28,7 +28,7 @@ public class OffersDAOImpl implements OffersDAO {
 		int months=sc.nextInt();
 		ResultSet rs=stmt.executeQuery("SELECT * FROM OFFERS WHERE USERNAME = '" + userName + "' AND CAR_ID = " + carID);
 		if(rs.next() == true) {
-			System.out.println("Already made offer on this car!");
+			System.out.println("You Already Have a Pending Offer for this Car.");
 		}
 		else {
 			ResultSet rss;
@@ -41,7 +41,6 @@ public class OffersDAOImpl implements OffersDAO {
 				stmt.executeUpdate(sql);
 //				rss=stmt.executeQuery("INSERT INTO OFFERS VALUES(" + rss.getInt(6) + ",'" + userName + "','" + rss.getString(1) + "','" + rss.getString(2) + "', " + rss.getInt(3) + "," + rss.getInt(4) + ","+months+")");
 		
-					System.out.println("Data added to Offers Table");
 //					rs = stmt.executeQuery("INSERT INTO OFFERS VALUES(" + rs.getInt(6) + ",'" + userName + "','" + rs.getString(1) + "','" + rs.getString(2) + "', " + rs.getInt(3) + "," + rs.getInt(4) + ","+months+")");
 				}
 			}
@@ -56,7 +55,7 @@ public class OffersDAOImpl implements OffersDAO {
 //			stmt.executeUpdate(sql);
 //			offerList.add(offer);
 		
-			System.out.println("Thank you for your offer!");
+			System.out.println("Thank you for your offer.");
 		}
 
 	public List<Offers> getOffersList() throws Exception {

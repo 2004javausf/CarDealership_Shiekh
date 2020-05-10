@@ -7,8 +7,6 @@ import com.beans.User;
 
 public interface CarDealershipDAO {
 	
-//	public void insertUser() throws Exception;
-	
 	public List<User> getUserList() throws Exception;
 	
 	public List<Cars> getCarsList() throws Exception;
@@ -16,9 +14,7 @@ public interface CarDealershipDAO {
 	public void addCars() throws Exception;
 	
 	public void removeCar() throws Exception;
-	
-//	public void checkUser() throws Exception;
-	
+
 	public void viewCars() throws Exception;
 	
 	public List<Cars> ownedCars(String userName) throws Exception;

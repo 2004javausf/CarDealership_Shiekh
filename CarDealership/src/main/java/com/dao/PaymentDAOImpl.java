@@ -2,6 +2,7 @@ package com.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 		amountRemaining = rs.getInt(5)-(numberOfPayments*mon);
 		rs = stmt.executeQuery("UPDATE PAYMENTS SET	AMOUNT_REMAINING = "+amountRemaining+"  WHERE CAR_ID = " + carID);
 		rs = stmt.executeQuery("UPDATE PAYMENTS SET REMAINING_PAYMENTS = "+rem+"  WHERE CAR_ID = " + carID);
-		}		
+		}	
+		else {
+			System.out.println("Invalid Entry or You do not Own this Car");
+		}
 	}
 	
 	public List<Payments> viewAllPaymentsList() throws Exception {
@@ -48,6 +52,21 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 		return paymentsList;
 	}
+	
+	public void viewPayments() throws SQLException {
+		try {
+			for (int i=0; i< viewAllPaymentsList().size();i++)
+			{
+				String tmp= viewAllPaymentsList().get(i).toString();
+				
+			 System.out.println(tmp);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
 	public void remainingPaymentsList(String userName) throws Exception {
 		for (int i=0; i< viewAllPaymentsList().size();i++)
 		{

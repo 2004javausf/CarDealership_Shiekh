@@ -54,8 +54,8 @@ public class Cars {
 	}
 	@Override
 	public String toString() {
-		return "Cars [carID=" + carID + ", carStatus=" + carStatus + ", carMake=" + carMake + ", carModel=" + carModel
-				+ ", carYear=" + carYear + ", carPrice=" + carPrice + "]";
+		return "CAR ID=" + carID + ", Status=" + carStatus + ", Make=" + carMake + ", Model=" + carModel
+				+ ", Model Year=" + carYear + ", Price=" + carPrice + "";
 	}
 	
 

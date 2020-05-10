@@ -11,7 +11,7 @@ import com.dao.CarDealershipDAOImpl;
 import com.dao.OffersDAOImpl;
 import com.dao.PaymentDAOImpl;
 
-public class Methods {
+public class Users {
 	public static ConnFactory cf=ConnFactory.getInstance();
 	
 	
@@ -21,7 +21,7 @@ public class Methods {
 		PaymentDAOImpl pdi= new PaymentDAOImpl();
 		Connection conn=cf.getConnection();
 		Statement stmt=conn.createStatement();
-		
+		boolean quit=false;
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter username: ");
 		String userName=sc.nextLine();
@@ -30,36 +30,44 @@ public class Methods {
 		ResultSet rs=stmt.executeQuery("SELECT * FROM USER1 WHERE USERNAME = '" + userName + "' AND PASSWORD1 =  '"+ password +"'");
 		if(rs.next() == true) {
 			System.out.println("Login Successful");
+			do {
 			System.out.println("1. View all Cars ");
 			System.out.println("2. Make an offer ");
 			System.out.println("3. View all Cars you own ");
 			System.out.println("4. View all remaining payments ");
+			System.out.println("5. Make a payment ");
+			System.out.println("6. QUIT ");
 			Scanner s=new Scanner(System.in);
 			int choice=s.nextInt();
 						switch(choice)
 						{
 						case 1:
 							cdd.viewCars();
-							System.out.println("Do you want to make an offer (yes or no)");
-							String select=sc.nextLine();
-							if(select.equals("no"))
-							{
-								break;
-							}
+							break;
 						case 2:
 								off.offers(userName);
 							break;
 						case 3:
-								System.out.println(cdd.ownedCars(userName));	
+								cdd.viewMyOwnerCars(userName);	
 								break;
 						case 4:
 							pdi.remainingPaymentsList(userName);
 							break;
+						case 5:
+							pdi.makePayment(userName);
+							break;
+						case 6:
+							quit=true;
+							break;
+						default:
+							System.out.println("Invalid Choice");
+							break;
 						}
-						
+			}while(!quit);
 		}
 		else {
-			System.out.println("Login Un Successful");
+			System.out.println("Login Un Successful \n Try Again:");
+			currentUser();
 		}
 		
 	}
@@ -91,47 +99,5 @@ public class Methods {
 		
 }
 }
-		
-		
-//		String tmp2;
-//		try {
-//			System.out.println(cdd.getUserList().size());
-//			for(int i = 0; i < cdd.getUserList().size(); i++) {
-//				tmp2 = cdd.getUserList().get(i).toString();
-//				
-//				if(tmp2.contains("userName=" + username + ", " + "password=" + password + " ")) {
-//					System.out.println("Login successfull");
-//					
-//					break;
-//					}
-//				else { System.out.println("Login successfull");}
-//				}
-			
-			
-//			System.out.println("What do you want to do ");
-//			System.out.println("1. View all Cars ");
-//			System.out.println("2. Make an offer ");
-//			System.out.println("3. View all Cars you own ");
-//			System.out.println("4. View all remaining payments ");
-//			Scanner s=new Scanner(System.in);
-//			int choice=s.nextInt();
-//			switch(choice) {
-//			case 1:
-////				CarDealershipDAOImpl cddi=new CarDealershipDAOImpl();
-//				try {
-//					System.out.println(cddi.getCarsList());
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				break;
-//			case 2:
-//				break;
-//			case 3:
-//				break;
-//			case 4:
-//				break;
-//					
-//			}
-//			
+
 

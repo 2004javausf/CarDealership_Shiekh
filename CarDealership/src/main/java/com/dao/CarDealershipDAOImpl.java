@@ -17,22 +17,6 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 	
 	public static ConnFactory cf=ConnFactory.getInstance();
 	
-	
-	
-//	public void insertUser() throws SQLException {
-//		
-//		Connection conn=cf.getConnection();
-//		Statement stmt=conn.createStatement();
-//		Scanner sc= new Scanner(System.in);
-//		System.out.println("Enter desire username: ");
-//		String username=sc.nextLine();
-//		System.out.println("Enter desire password: ");
-//		String password=sc.nextLine();
-//		String sql="INSERT INTO USER1 VALUES ('"+username+"','"+password+"')";
-//		stmt.executeUpdate(sql);
-//	}
-	
-	
 	public List<User> getUserList() throws SQLException{
 		 List<User> userList= new ArrayList<User>();
 		 Connection conn=cf.getConnection();
@@ -53,6 +37,11 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 		Scanner s=new Scanner(System.in);
 		System.out.println("Enter Car ID:");
 		int carID=s.nextInt();
+		ResultSet rs=stmt.executeQuery("SELECT * FROM CARS WHERE CAR_ID = " +carID);
+		if(rs.next() == true) {
+			System.out.println("CAR ID ALREADY EXIST \n Enter CAR ID Again:");
+			carID=s.nextInt();
+		}
 		System.out.println("Add Car Make:");
 		String carMake=sc.nextLine();
 		System.out.println("Add Car Model:");
@@ -61,7 +50,7 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 		int carYear=sc.nextInt();
 		System.out.println("Add Car Price:");
 		int carPrice=sc.nextInt();
-		String sql="INSERT INTO CARS VALUES ( '"+carMake+"','"+carModel+"', "+carYear+" , "+carPrice+", 'Available',"+carID+")";
+		String sql="INSERT INTO CARS VALUES ( '"+carMake+"','"+carModel+"', "+carYear+" , "+carPrice+", 'Available',"+carID+",'-----')";
 		stmt.executeUpdate(sql);
 	}
 	
@@ -83,29 +72,22 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 		Statement stmt=conn.createStatement();
 		Scanner sc=new Scanner(System.in);
 		
-		System.out.println("Enter Serial Number:");
+		System.out.println("Enter Car ID to Remove:");
 		int serialNumber=sc.nextInt();
-		String sql="DELETE FROM CARS WHERE CAR_ID=("+serialNumber+")";
-		stmt.executeUpdate(sql);
+		ResultSet rs=stmt.executeQuery("SELECT * FROM CARS WHERE CAR_ID = " +serialNumber);
+		if(rs.next() == true) {
+			String sql="DELETE FROM CARS WHERE CAR_ID=("+serialNumber+")";
+			stmt.executeUpdate(sql);
+			rs = stmt.executeQuery("DELETE FROM PAYMENTS WHERE CAR_ID=( "+ serialNumber+")");
+			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID=( "+ serialNumber+")");
+			
+		}
+		else
+		{
+			System.out.println("Car ID Doesn't Exist TRY AGAIN");
+			removeCar();
+		}
 	}
-
-	
-//	public void checkUser(String userName, String password) throws SQLException{
-////		Scanner sc=new Scanner(System.in);
-////		System.out.println("Enter username: ");
-////		String username=sc.nextLine();
-////		System.out.println("Enter password: ");
-////		String password=sc.nextLine();
-//		for (int i=0; i< getUserList().size();i++)
-//		{
-//			String tmp= getUserList().get(i).toString();
-//			if (tmp.contains("userName=" + userName + ", " + "password=" + password + " ")) {
-//				System.out.println("User Name Already Exists");
-//				break;
-//				}
-//			else { System.out.println("Login successfull");}
-//			}
-//		}
 
 
 	public void viewCars() throws SQLException {
@@ -146,9 +128,8 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			rs = stmt.executeQuery("UPDATE CARS SET OWNER = '"+userName+"'  WHERE CAR_ID = " + carId);
 			
 			rs = stmt.executeQuery("INSERT INTO PAYMENTS (CAR_ID,PAYMENTS_DECIDED,REMAINING_PAYMENTS,CAR_PRICE,AMOUNT_REMAINING,USERNAME) SELECT CAR_ID,NUMBER_OF_MONTHS,NUMBER_OF_MONTHS,CAR_PRICE,CAR_PRICE,USERNAME FROM OFFERS WHERE USERNAME = '"+userName+"' AND CAR_ID= "+ carId);
-			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE USERNAME = '"+userName+"' AND CAR_ID = " + carId);
-			//			String sql="INSERT INTO PAYMENTS VALUES ("+carId+","+rs.getInt(6)+")";
-//			stmt.executeUpdate(sql);
+			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID = " + carId);
+
 			return;
 		}
 		else if(choice.equals("reject"))
@@ -171,6 +152,23 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 
 	}
 		 return ownedCarsList;
+	}
+	
+	public void viewMyOwnerCars(String userName) throws Exception{
+		try {
+			for (int i=0; i< ownedCars(userName).size();i++)
+			{
+				String tmp= ownedCars(userName).get(i).toString();
+				
+			 System.out.println(tmp);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	}
 

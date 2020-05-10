@@ -63,9 +63,8 @@ public class Payments {
 
 	@Override
 	public String toString() {
-		return "Payments [carID=" + carID + ", paymentsDecided=" + paymentsDecided + ", remainingPayments="
-				+ remainingPayments + ", carPrice=" + carPrice + ", amountRemaining=" + amountRemaining + ", userName="
-				+ userName + "]";
+		return "CAR ID=" + carID + ",Car Owner=" +userName+", Payments Decided=" + paymentsDecided + ", Remaining Payments="
+				+ remainingPayments + ", Total Price=" + carPrice + ", Remaining=" + amountRemaining + "";
 	}
 	
 }
