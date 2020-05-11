@@ -12,6 +12,7 @@ import java.util.Scanner;
 import com.beans.Cars;
 import com.beans.User;
 import com.connection.ConnFactory;
+import com.util.LogThis;
 
 public class CarDealershipDAOImpl implements CarDealershipDAO {
 	
@@ -52,6 +53,7 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 		int carPrice=sc.nextInt();
 		String sql="INSERT INTO CARS VALUES ( '"+carMake+"','"+carModel+"', "+carYear+" , "+carPrice+", 'Available',"+carID+",'-----')";
 		stmt.executeUpdate(sql);
+		LogThis.LogIt("info",  " was added");
 		System.out.println("=======================================================\n");
 		System.out.println("             CAR ADDED TO LOT\n");
 		System.out.println("=======================================================\n");
