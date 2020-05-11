@@ -61,6 +61,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 				
 			 System.out.println(tmp);
 				}
+			System.out.println("=======================================================\n");
+			System.out.println("        YOU ARE VIEWING THE UPDATED PAYMENT LIST\n");
+			System.out.println("=======================================================\n");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

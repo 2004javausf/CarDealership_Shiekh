@@ -52,6 +52,9 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 		int carPrice=sc.nextInt();
 		String sql="INSERT INTO CARS VALUES ( '"+carMake+"','"+carModel+"', "+carYear+" , "+carPrice+", 'Available',"+carID+",'-----')";
 		stmt.executeUpdate(sql);
+		System.out.println("=======================================================\n");
+		System.out.println("             CAR ADDED TO LOT\n");
+		System.out.println("=======================================================\n");
 	}
 	
 	public List<Cars> getCarsList() throws Exception {
@@ -80,6 +83,9 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			stmt.executeUpdate(sql);
 			rs = stmt.executeQuery("DELETE FROM PAYMENTS WHERE CAR_ID=( "+ serialNumber+")");
 			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID=( "+ serialNumber+")");
+			System.out.println("=======================================================\n");
+			System.out.println("             CAR REMOVED FROM LOT\n");
+			System.out.println("=======================================================\n");
 			
 		}
 		else
@@ -99,10 +105,8 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			 System.out.println(tmp);
 				}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		}

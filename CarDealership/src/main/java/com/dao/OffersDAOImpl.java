@@ -32,17 +32,25 @@ public class OffersDAOImpl implements OffersDAO {
 		}
 		else {
 			ResultSet rss;
-			rss=stmt.executeQuery("SELECT * FROM CARS WHERE CAR_ID = "+ carID);
+			rss=stmt.executeQuery("SELECT * FROM CARS WHERE CAR_STATUS = 'Available' AND CAR_ID = " + carID);
 
 //			Offers offer=null;
 			
 			if(rss.next() == true)  { 
 				String sql= "INSERT INTO OFFERS VALUES(" + rss.getInt(6) + ",'" + userName + "','" + rss.getString(1) + "','" + rss.getString(2) + "', " + rss.getInt(3) + "," + rss.getInt(4) + ","+months+")";
 				stmt.executeUpdate(sql);
+				System.out.println("=======================================================");
+				System.out.println("	THANK YOU FOR YOUR OFFER.");
+				System.out.println("=======================================================");
 //				rss=stmt.executeQuery("INSERT INTO OFFERS VALUES(" + rss.getInt(6) + ",'" + userName + "','" + rss.getString(1) + "','" + rss.getString(2) + "', " + rss.getInt(3) + "," + rss.getInt(4) + ","+months+")");
 		
 //					rs = stmt.executeQuery("INSERT INTO OFFERS VALUES(" + rs.getInt(6) + ",'" + userName + "','" + rs.getString(1) + "','" + rs.getString(2) + "', " + rs.getInt(3) + "," + rs.getInt(4) + ","+months+")");
 				}
+			else {
+				System.out.println("=======================================================");
+				System.out.println("	CANNOT MAKE OFFER.");
+				System.out.println("=======================================================");
+			}
 			}
 //				while(rss.next()) {
 //					System.out.println("Data added to Offers Table");
@@ -55,7 +63,7 @@ public class OffersDAOImpl implements OffersDAO {
 //			stmt.executeUpdate(sql);
 //			offerList.add(offer);
 		
-			System.out.println("Thank you for your offer.");
+			
 		}
 
 	public List<Offers> getOffersList() throws Exception {
