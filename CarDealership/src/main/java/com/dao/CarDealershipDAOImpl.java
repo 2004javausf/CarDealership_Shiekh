@@ -132,7 +132,7 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			 System.out.println("Enter the user name for which you want to accept offer");
 			String userName=sc.nextLine();
 			rs = stmt.executeQuery("UPDATE CARS SET CAR_STATUS = 'Owned'  WHERE CAR_ID = " + carId);
-			rs = stmt.executeQuery("UPDATE CARS SET OWNER = '"+userName+"'  WHERE CAR_ID = " + carId);
+			rs = stmt.executeQuery("UPDATE CARS SET CAR_OWNER = '"+userName+"'  WHERE CAR_ID = " + carId);
 			
 			rs = stmt.executeQuery("INSERT INTO PAYMENTS (CAR_ID,PAYMENTS_DECIDED,REMAINING_PAYMENTS,CAR_PRICE,AMOUNT_REMAINING,USERNAME) SELECT CAR_ID,NUMBER_OF_MONTHS,NUMBER_OF_MONTHS,CAR_PRICE,CAR_PRICE,USERNAME FROM OFFERS WHERE USERNAME = '"+userName+"' AND CAR_ID= "+ carId);
 			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID = " + carId);
@@ -151,7 +151,7 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 		List<Cars> ownedCarsList= new ArrayList<Cars>();
 		 Connection conn=cf.getConnection();
 			Statement stmt=conn.createStatement();
-			ResultSet rs=stmt.executeQuery("SELECT * FROM CARS WHERE OWNER= '"+ userName +"'");
+			ResultSet rs=stmt.executeQuery("SELECT * FROM CARS WHERE CAR_OWNER= '"+ userName +"'");
 			Cars s=null;
 			while(rs.next()) { 
 				s= new Cars(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6));  
