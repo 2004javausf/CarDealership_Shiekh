@@ -136,7 +136,6 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			
 			rs = stmt.executeQuery("INSERT INTO PAYMENTS (CAR_ID,PAYMENTS_DECIDED,REMAINING_PAYMENTS,CAR_PRICE,AMOUNT_REMAINING,USERNAME) SELECT CAR_ID,NUMBER_OF_MONTHS,NUMBER_OF_MONTHS,CAR_PRICE,CAR_PRICE,USERNAME FROM OFFERS WHERE USERNAME = '"+userName+"' AND CAR_ID= "+ carId);
 			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID = " + carId);
-			LogThis.LogIt("info","Offer for Car ID= "+carId+" Accepted for '"+userName+"'");
 			return;
 		}
 		else if(choice.equals("reject"))

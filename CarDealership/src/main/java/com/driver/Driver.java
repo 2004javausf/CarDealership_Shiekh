@@ -15,9 +15,12 @@ public class Driver {
 	public static void main(String[] args) throws Throwable {
 		Employee employee=new Employee();
 		Users customer=new Users();
+		boolean quit=false;
 		System.out.println("=======================================================\n");
 		System.out.println("             WELCOME TO CAR DEALERSHIP\n");
 		System.out.println("=======================================================\n");
+		do
+		{
 		System.out.println("Do You want to Login as an Employee or as a Customer");
 		System.out.println("If You are a First time User Go for Simple registration");
 		System.out.println("1. Employee");
@@ -37,11 +40,14 @@ public class Driver {
 		case 3:
 			customer.newUser();
 			break;
-		
+		case 4:
+			quit=true;
+			break;
 		default:
 			System.out.println("Thanks for using our Dealership");
 			break;
 			
 		}
+	} while(!quit);
 	}
 }

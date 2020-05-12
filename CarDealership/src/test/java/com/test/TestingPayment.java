@@ -12,15 +12,12 @@ class TestingPayment {
 	void Payment() {
 		PaymentDAOImpl pdi = new PaymentDAOImpl();
 		try {
-			pdi.makePayment("wow");
+			pdi.makePayment("Moon");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+	
 
 }
