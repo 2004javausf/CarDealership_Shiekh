@@ -12,6 +12,7 @@ import com.beans.Cars;
 import com.beans.Offers;
 import com.beans.Payments;
 import com.connection.ConnFactory;
+import com.util.LogThis;
 
 public class PaymentDAOImpl implements PaymentDAO {
 	public static ConnFactory cf=ConnFactory.getInstance();
@@ -30,10 +31,15 @@ public class PaymentDAOImpl implements PaymentDAO {
 		ResultSet rs=stmt.executeQuery("SELECT * FROM PAYMENTS WHERE USERNAME = '" + userName + "' AND CAR_ID = " + carID);
 		if(rs.next()== true) { 
 		rem=rs.getInt(3)-numberOfPayments;
-		mon =rs.getInt(5)/rs.getInt(2);
+		mon =rs.getInt(4)/rs.getInt(2);
 		amountRemaining = rs.getInt(5)-(numberOfPayments*mon);
 		rs = stmt.executeQuery("UPDATE PAYMENTS SET	AMOUNT_REMAINING = "+amountRemaining+"  WHERE CAR_ID = " + carID);
 		rs = stmt.executeQuery("UPDATE PAYMENTS SET REMAINING_PAYMENTS = "+rem+"  WHERE CAR_ID = " + carID);
+		LogThis.LogIt("info","Payment Made for Car ID= "+carID+" under Name '"+userName+"'");
+		System.out.println("=======================================================\n");
+		System.out.println("       			PAYMENT MADE\n");
+		System.out.println("=======================================================\n");
+		
 		}	
 		else {
 			System.out.println("Invalid Entry or You do not Own this Car");
@@ -74,7 +80,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 		for (int i=0; i< viewAllPaymentsList().size();i++)
 		{
 			String tmp= viewAllPaymentsList().get(i).toString();
-			if(tmp.contains("userName=" + userName + "]"))
+			if(tmp.contains("Car Owner=" + userName + ","))
 					{
 				System.out.println("CAR ID = "+ viewAllPaymentsList().get(i).getCarID());
 				System.out.println("Remaining Payments = "+viewAllPaymentsList().get(i).getRemainingPayments());

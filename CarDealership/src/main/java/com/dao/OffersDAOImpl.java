@@ -11,6 +11,7 @@ import java.util.Scanner;
 import com.beans.Cars;
 import com.beans.Offers;
 import com.connection.ConnFactory;
+import com.util.LogThis;
 
 public class OffersDAOImpl implements OffersDAO {
 	public static ConnFactory cf=ConnFactory.getInstance();
@@ -39,6 +40,7 @@ public class OffersDAOImpl implements OffersDAO {
 			if(rss.next() == true)  { 
 				String sql= "INSERT INTO OFFERS VALUES(" + rss.getInt(6) + ",'" + userName + "','" + rss.getString(1) + "','" + rss.getString(2) + "', " + rss.getInt(3) + "," + rss.getInt(4) + ","+months+")";
 				stmt.executeUpdate(sql);
+				LogThis.LogIt("info","Offer Mader For Car ID= "+carID+" by '"+userName+"'");
 				System.out.println("=======================================================");
 				System.out.println("	THANK YOU FOR YOUR OFFER.");
 				System.out.println("=======================================================");
@@ -97,10 +99,6 @@ public class OffersDAOImpl implements OffersDAO {
 		}
 		
 	}
-		
-		
-		
-//		return offerList;
 	}
 	
 

@@ -53,7 +53,7 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 		int carPrice=sc.nextInt();
 		String sql="INSERT INTO CARS VALUES ( '"+carMake+"','"+carModel+"', "+carYear+" , "+carPrice+", 'Available',"+carID+",'-----')";
 		stmt.executeUpdate(sql);
-		LogThis.LogIt("info",  " was added");
+		LogThis.LogIt("info","Car ID= "+carID+" added");
 		System.out.println("=======================================================\n");
 		System.out.println("             CAR ADDED TO LOT\n");
 		System.out.println("=======================================================\n");
@@ -85,6 +85,7 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			stmt.executeUpdate(sql);
 			rs = stmt.executeQuery("DELETE FROM PAYMENTS WHERE CAR_ID=( "+ serialNumber+")");
 			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID=( "+ serialNumber+")");
+			LogThis.LogIt("info","Car ID= "+serialNumber+" Removed");
 			System.out.println("=======================================================\n");
 			System.out.println("             CAR REMOVED FROM LOT\n");
 			System.out.println("=======================================================\n");
@@ -135,13 +136,13 @@ public class CarDealershipDAOImpl implements CarDealershipDAO {
 			
 			rs = stmt.executeQuery("INSERT INTO PAYMENTS (CAR_ID,PAYMENTS_DECIDED,REMAINING_PAYMENTS,CAR_PRICE,AMOUNT_REMAINING,USERNAME) SELECT CAR_ID,NUMBER_OF_MONTHS,NUMBER_OF_MONTHS,CAR_PRICE,CAR_PRICE,USERNAME FROM OFFERS WHERE USERNAME = '"+userName+"' AND CAR_ID= "+ carId);
 			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID = " + carId);
-
+			LogThis.LogIt("info","Offer for Car ID= "+carId+" Accepted for '"+userName+"'");
 			return;
 		}
 		else if(choice.equals("reject"))
 		{
 			rs = stmt.executeQuery("DELETE FROM OFFERS WHERE CAR_ID = " + carId);
-			System.out.println("Offer removed");
+			LogThis.LogIt("info","All Offers for Car ID= "+carId+" rejected");
 		}
 	}
 
