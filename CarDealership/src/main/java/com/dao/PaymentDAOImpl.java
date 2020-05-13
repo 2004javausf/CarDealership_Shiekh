@@ -35,6 +35,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 		amountRemaining = rs.getInt(5)-(numberOfPayments*mon);
 		rs = stmt.executeQuery("UPDATE PAYMENTS SET	AMOUNT_REMAINING = "+amountRemaining+"  WHERE CAR_ID = " + carID);
 		rs = stmt.executeQuery("UPDATE PAYMENTS SET REMAINING_PAYMENTS = "+rem+"  WHERE CAR_ID = " + carID);
+		System.out.println("You Pay "+mon+" Monthly");
+		System.out.println("You Payed "+mon*numberOfPayments+" today");
 		LogThis.LogIt("info","Payment Made for Car ID= "+carID+" under Name '"+userName+"'");
 		System.out.println("=======================================================\n");
 		System.out.println("       			PAYMENT MADE\n");

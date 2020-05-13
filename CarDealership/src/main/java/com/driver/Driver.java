@@ -26,7 +26,7 @@ public class Driver {
 		System.out.println("1. Employee");
 		System.out.println("2. Customer");
 		System.out.println("3. Register");
-		System.out.println("   Press Any Other Key to Exit");
+		System.out.println("4. Quit");
 		Scanner sc=new Scanner(System.in);
 		int input= sc.nextInt();
 		switch(input)
